@@ -1,0 +1,42 @@
+package poo;
+public class Cuenta {
+	private String Titular;
+	private double Cantidad;
+	
+	public Cuenta(String titular, double cantidad){ //Constructor.
+		Titular= titular;
+		Cantidad= cantidad;
+	}
+	public Cuenta(String titular){                  //Sobre-carga del Constructor.
+		this(titular,0);
+	}
+	public String getTitular(){ 					
+		return Titular;
+	}
+	public void setTitular(String titular){
+		Titular=titular;
+	}
+	public double getCantidad(){
+		return Cantidad;
+	}
+	public void setCantidad(double cantidad){
+		Cantidad=cantidad;
+	}
+	
+	public void Ingresar(double cantidad) {
+		if(cantidad>=0) {
+			Cantidad+= cantidad;
+		}
+	}
+	public void Retirar(double cantidad){
+		if(Cantidad-cantidad<0){
+			Cantidad=0;
+		}
+		else {
+			Cantidad-=cantidad;
+		}
+	}
+	public String toString(){
+		return "El titular "+Titular+" tiene la cantidad de $"+Cantidad+" en su cuenta.";
+	}
+}
