@@ -1,0 +1,51 @@
+package poo;
+import java.util.Scanner;
+
+public class UsoPersona {
+	public static void main(String[] args) {
+		Persona personas[]= new Persona[10];
+		Scanner teclado= new Scanner(System.in);
+		System.out.println("****  ****Registro de personas****  ****");
+		int a=0;
+		for(int i=0 ; i<10 ; i++) {
+			System.out.println("Selecciona la opción que desees.");
+			System.out.println("** 1.- Alta ** 2.- Consulta ** 3.- Vacios: ");
+			int opcion=teclado.nextInt();
+			switch(opcion) {
+				case 1: System.out.println("Ingresa el nombre ");
+						String nombre=teclado.next();
+						System.out.println("Ingresa el sexo   ");
+						char sexo=teclado.next().charAt(0);
+						System.out.println("Ingresa la edad   ");
+						int edad=teclado.nextInt();
+						System.out.println("Ingresa la peso   ");
+						double peso=teclado.nextDouble();
+						System.out.println("Ingresa la altura ");
+						double altura=teclado.nextDouble();
+						personas[a] = new Persona(nombre, edad, sexo, peso, altura);
+						a++;
+						break;	
+				case 2: System.out.println("Selecciona el registro a condultar.");
+					    int opcion2=teclado.nextInt()-1;
+					    if(opcion2<0 || opcion2>9) {
+					    	System.out.println("No existe ese registro.");
+					    }
+					    else if(personas[opcion2]==null) {
+					    	System.out.println("Registro vacio.");
+					    }
+					    else {
+					    	System.out.println(personas[opcion2]);	
+					    }		       
+				    	break;
+				case 3: for(int j=0 ; j<10 ; j++) {
+							if(personas[j]==null) {
+								System.out.println("Rl registro "+(j+1)+" está vacio.");
+							}
+				        }
+					    break;
+				default:
+						System.out.println("Esa opción no existe.");
+			}
+		}
+	}
+}
