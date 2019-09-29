@@ -1,0 +1,20 @@
+package poo;
+
+public class UsoCuenta {
+
+	public static void main(String[] args) {
+		
+		Cuenta cuenta1= new Cuenta("Juan");
+		Cuenta cuenta2= new Cuenta("Pedro", 1000.50);
+		
+		cuenta1.Ingresar(1175.25);
+		cuenta2.Ingresar(40.74);
+		
+		cuenta1.Retirar(800.14);
+		cuenta2.Retirar(1500);
+		
+		System.out.println(cuenta1);
+		System.out.println(cuenta2);
+		
+	}
+}
