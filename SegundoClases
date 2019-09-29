@@ -1,0 +1,130 @@
+//Haz una clase llamada Persona que siga las siguientes condiciones:
+package poo;
+public class Persona{
+	/*
+	 *Sus atributos son: nombre, edad, DNI, sexo (H hombre, M mujer), peso y altura. 
+	 *No queremos que se accedan directamente a ellos. 
+	 *Piensa que modificador de acceso es el más adecuado, también su tipo. 
+	 *Si quieres añadir algún atributo puedes hacerlo. 
+	 */
+	private String Nombre, DNI;
+	private char Sexo;
+	private int Edad; 
+	private double Peso, Altura;
+	/*
+	 * Por defecto, todos los atributos menos el DNI serán valores por defecto según su tipo 
+	 * (0 números, cadena vacía para String, etc.). 
+	 * Sexo sera hombre por defecto, usa una constante para ello.
+	 */
+	private final static char SexoDef= 'H';  //Sexo por defecto.	
+    public static final int InfraPeso=  -1;  //El peso de la persona esta por debajo del peso ideal.
+    public static final int PesoIdeal=   0;  //El peso de la persona esta en su peso ideal.
+    public static final int Sobrepeso=   1;  //El peso de la persona esta por encima del peso ideal.
+    /*
+     * Se implantaran varios constructores:
+	 * Un constructor por defecto.
+     * Un constructor con el nombre, edad y sexo, el resto por defecto.
+     * Un constructor con todos los atributos como parámetro.
+     */
+    public Persona(String nombre, int edad, char sexo, double peso, double altura){
+    	Nombre= nombre;
+    	Edad= edad;
+    	Sexo= sexo;
+    	Peso= peso;
+    	Altura= altura;
+    	generarDni();
+    	comprobarSexo();
+    }
+    public Persona(String nombre, int edad, char sexo){
+    	this(nombre, edad, sexo, 0, 0);
+    }
+    public Persona(){
+    	this("", 0, SexoDef, 0, 0);
+    }
+    //Los métodos que se implementaran son:
+    
+    /*
+     * calcularIMC(): calculara si la persona esta en su peso ideal (peso en kg/(altura^2  en m)), 
+     * si esta fórmula devuelve un valor menor que 20, la función devuelve un -1, 
+     * si devuelve un número entre 20 y 25 (incluidos), 
+     * significa que esta por debajo de su peso ideal la función devuelve un 0  
+     * y si devuelve un valor mayor que 25 significa que tiene sobrepeso, la función devuelve un 1. 
+     * Te recomiendo que uses constantes para devolver estos valores.
+     */
+    public int calcularIMC(){ //SETTER
+    	if((Peso/Math.pow(Altura, 2))<20){
+    		return InfraPeso;
+    	}
+    	else if((Peso/Math.pow(Altura, 2))>=20 && 25>=(Peso/Math.pow(Altura, 2))){
+    		return PesoIdeal;
+    	}
+    	else{
+    		return Sobrepeso;
+    	}
+    }
+    //esMayorDeEdad(): indica si es mayor de edad, devuelve un booleano.
+    public boolean esMayorDeEdad(){
+    	if(Edad>=18) {
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
+    //comprobarSexo(char sexo): comprueba que el sexo introducido es correcto. 
+    //Si no es correcto, sera H. No sera visible al exterior.
+    private void comprobarSexo(){
+    	if(Sexo!='H' || Sexo!='M'){
+    		Sexo= SexoDef;
+    	}
+    }
+    //generaDNI(): genera un número aleatorio de 8 cifras, genera a partir de este su número su letra correspondiente. 
+    //Este método sera invocado cuando se construya el objeto. 
+    //Puedes dividir el método para que te sea más fácil. No será visible al exterior.
+    private void generarDni() {
+        //Generamos un número de 8 digitos
+        int numDNI = ((int)Math.floor(Math.random()*2000+10000000));
+        //Calculamos la letra del DNI
+        char letras[] = {'T', 'R', 'W', 'A', 'G', 'M', 'Y',
+                		 'F', 'P', 'D', 'X', 'B', 'N', 'J', 
+                		 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 
+                		 'K', 'E'};
+        //Pasamos el DNI a String
+        int letra= numDNI-(numDNI/23*23); //el entero de numDNI/23 por 23.
+        DNI = Integer.toString(numDNI) + letras[letra];
+    }
+    //Métodos set de cada parámetro, excepto de DNI.
+    //nombre, edad, sexo, peso y altura. 
+    public void setNombre(String nombre) {
+    	Nombre=nombre;
+    }
+    public void setEdad(int edad) {
+    	Edad=edad;
+    }
+    public void setSexo(char sexo) {
+    	Sexo=sexo;
+    }
+    public void setPeso(double peso) {
+    	Peso=peso;
+    }
+    public void setAltura(double altura) {
+    	Altura=altura;
+    }
+    //toString(): devuelve toda la información del objeto.
+    public String toString() {
+    	String sexo;
+    	if (Sexo=='H') {
+    		sexo="Masculino";
+    	}
+    	else {
+    		sexo="Femenino";
+    	}
+    	return "Informacion de la persona:\n"+
+    		   "Nombre: " + Nombre + "\n"+
+               "Sexo: " + sexo + "\n"+
+               "Edad: " + Edad + " años\n"+
+               "DNI: " + DNI + "\n"+
+               "Peso: " + Peso + " kg\n"+
+               "Altura: " + Altura + " metros\n";
+    }
+}
